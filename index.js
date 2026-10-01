@@ -68,6 +68,32 @@ app.get('/article/:slug', (req, res) => {
   });
 });
 
+// show articles by author
+app.get('/author/:id', (req, res) => {
+  const authorId = req.params.id;
+
+  const authorQuery = 'SELECT * FROM author WHERE id = ?';
+
+  con.query(authorQuery, [authorId], (err, authorResult) => {
+    if (err) throw err;
+
+    if (authorResult.length === 0) {
+      return res.status(404).send('Author not found');
+    }
+
+    const articlesQuery = 'SELECT * FROM article WHERE author_id = ?';
+
+    con.query(articlesQuery, [authorId], (err, articlesResult) => {
+      if (err) throw err;
+
+      res.render('index', {
+        articles: articlesResult,
+        authorName: authorResult[0].name,
+      });
+    });
+  });
+});
+
 // app start point
 app.listen(3003, () => {
   console.log('App is started at http://localhost:3003');
