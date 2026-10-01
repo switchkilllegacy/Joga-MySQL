@@ -13,5 +13,14 @@
     "express": "^5.2.1",
     "express-handlebars": "^9.0.1",
     "mysql2": "^3.24.5"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/switchkilllegacy/Joga-MySQL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/switchkilllegacy/Joga-MySQL/issues"
+  },
+  "homepage": "https://github.com/switchkilllegacy/Joga-MySQL#readme"
 }
