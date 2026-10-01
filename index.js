@@ -53,14 +53,17 @@ app.get('/', (req, res) => {
 
 // show article by this slug
 app.get('/article/:slug', (req, res) => {
-  let query = `SELECT * FROM article WHERE slug ='${req.params.slug}'`;
-  let article;
-  con.query(query, (err, result) => {
+  let query = `SELECT article.*, author.name AS author_name
+  FROM article
+  INNER JOIN author ON article.author_id = author.id
+  WHERE slug =?`;
+
+  con.query(query, [req.params.slug], (err, result) => {
     if (err) throw err;
-    article = result;
-    console.log(article);
+
+    // edastame result massiivi otse res.render funktsioonile
     res.render('article', {
-      article: article,
+      article: result,
     });
   });
 });
