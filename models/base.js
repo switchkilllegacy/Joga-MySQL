@@ -1,4 +1,4 @@
-const conn = require('../utils/db');
+const pool = require('../utils/db');
 
 class BaseSQLModel {
   constructor(tableName) {
@@ -30,9 +30,15 @@ class BaseSQLModel {
   }
 
   async findOne(where, value) {
-    const query = `SELECT * FROM ${this.tableName} WHERE ${where} = "${value}"`;
+    const query = `SELECT * FROM ${this.tableName} WHERE ?? = ?`;
     const results = await this.executeQuery(query, [where, value]);
     return results[0];
+  }
+
+  async findMany(where, value) {
+    const query = `SELECT * FROM ${this.tableName} WHERE ?? = ?`;
+    const results = await this.executeQuery(query, [where, value]);
+    return results;
   }
 
   async create(data) {
