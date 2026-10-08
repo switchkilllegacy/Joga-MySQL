@@ -13,5 +13,8 @@ router.get('/article/:slug', (req, res) =>
 router.get('/author/:id', (req, res) =>
   authorController.getAuthorById(req, res),
 );
+router.post('/article/create', (req, res) =>
+  articleController.createNewArticle(req, res),
+);
 
 module.exports = router;
