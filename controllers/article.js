@@ -79,6 +79,24 @@ class arcileController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteArticle(req, res) {
+    try {
+      const articleId = req.params.id;
+      const article = await articleModel.findById(articleId);
+      if (!article) {
+        return res.status(404).json({ error: 'Article not found' });
+      }
+
+      await articleModel.delete(articleId);
+      return res.status(200).json({
+        message: `deleted article with id ${articleId}`,
+        articleId: Number(articleId),
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = arcileController;
